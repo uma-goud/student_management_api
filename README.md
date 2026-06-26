@@ -50,7 +50,7 @@ student_management/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/student-management-api.git
+git clone https://github.com/uma-goud/student_management_api.git
 cd student-management-api
 ```
 
