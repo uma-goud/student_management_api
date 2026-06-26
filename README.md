@@ -188,6 +188,22 @@ enrollments
 
 ---
 
+## 📸 Screenshots
+
+### Swagger UI - All Endpoints
+![Swagger UI](screenshots/swagger_ui.png)
+
+### 403 Forbidden - Without API Key
+![403 Forbidden](screenshots/403_forbidden.png)
+
+### 201 Created - Student Created Successfully
+![201 Created](screenshots/201_created.png)
+
+### GET All Students
+![Get Students](screenshots/get_students.png)
+
+---
+
 ## 👤 Author
 
 **Uma Baleboyina**  
