@@ -95,7 +95,9 @@ In Swagger UI → click **Authorize 🔓** → enter the key.
 | Method | Endpoint                    | Auth | Description      |
 | ------ | --------------------------- | ---- | ---------------- |
 | POST   | `/students/`                | ✅   | Create student   |
-| GET    | `/students/`                | ❌   | Get all students |
+| GET    | `/students/`                | ❌   | Get all students (search & pagination supported) |
+| GET    | `/students/?search=uma`     | ❌   | Search students by name |
+| GET    | `/students/?limit=10&skip=0`| ❌   | Paginated results |
 | GET    | `/students/{id}`            | ❌   | Get by ID        |
 | GET    | `/students/branch/{branch}` | ❌   | Filter by branch |
 | PUT    | `/students/{id}`            | ✅   | Full update      |
@@ -185,6 +187,16 @@ enrollments
   "is_active": true
 }
 ```
+## ⚡ Extra Features
+
+- 🔍 **Search** — Search students by name using `?search=uma`
+- 📄 **Pagination** — Limit results using `?limit=10&skip=0`
+- 🏥 **Health Check** — Shows API status and database connection
+- 📝 **Logging** — All requests and errors are logged
+- 🗄️ **Alembic Migrations** — Database version control
+- 🧪 **Unit Tests** — 8 tests covering all major scenarios
+
+---
 
 ---
 
