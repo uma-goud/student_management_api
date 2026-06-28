@@ -1,4 +1,5 @@
 import pytest
+import uuid
 from fastapi.testclient import TestClient
 from main import app
 
@@ -14,11 +15,12 @@ def test_root():
 
 
 def test_create_student():
+    unique_email = f"test_{uuid.uuid4().hex[:8]}@example.com"
     response = client.post(
         "/students/",
         json={
             "name": "Test Student",
-            "email": "test123@example.com",
+            "email": unique_email,
             "phone": "9999999999",
             "branch": "CSE",
             "year": 2
@@ -28,7 +30,7 @@ def test_create_student():
     assert response.status_code == 201
     data = response.json()
     assert data["name"] == "Test Student"
-    assert data["email"] == "test123@example.com"
+    assert data["email"] == unique_email
     assert data["is_active"] == True
 
 
