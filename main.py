@@ -1,11 +1,12 @@
 from fastapi import FastAPI, Depends, Request
 from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
-from database import engine, Base
+from sqlalchemy.orm import Session
+from sqlalchemy import text
+from database import engine, Base, get_db
 from routers import students, courses
 from auth import verify_api_key
 import logging
-
 # Setup logging
 logging.basicConfig(
     level=logging.INFO,
@@ -69,9 +70,20 @@ app.include_router(courses.router)
 # ROUTES
 
 @app.get("/", tags=["Health"])
-def root():
+def root(db: Session = Depends(get_db)):
+    try:
+        db.execute(text("SELECT 1"))
+        db_status = "connected ✅"
+    except Exception:
+        db_status = "disconnected ❌"
     logger.info("Health check called")
-    return {"message": "API is running 🚀 visit /docs for Swagger UI"}
+    return {
+        "status": "healthy",
+        "message": "API is running 🚀",
+        "database": db_status,
+        "version": "1.0.0",
+        "docs": "http://127.0.0.1:8000/docs"
+    }
 
 @app.get("/me", tags=["Auth"])
 def get_me(api_key: str = Depends(verify_api_key)):

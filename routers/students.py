@@ -16,8 +16,19 @@ def create_student(student: schemas.StudentCreate, db: Session = Depends(get_db)
     return new
 
 @router.get("/", response_model=List[schemas.StudentResponse])
-def get_all(db: Session = Depends(get_db)):
-    return db.query(models.Student).filter(models.Student.is_active == True).all()
+def get_all(
+    search: str = None,
+    limit: int = 100,
+    skip: int = 0,
+    db: Session = Depends(get_db)
+):
+    query = db.query(models.Student).filter(models.Student.is_active == True)
+    
+    # Search by name if search parameter provided
+    if search:
+        query = query.filter(models.Student.name.ilike(f"%{search}%"))
+    
+    return query.offset(skip).limit(limit).all()
 
 @router.get("/branch/{branch}", response_model=List[schemas.StudentResponse])
 def get_by_branch(branch: str, db: Session = Depends(get_db)):
